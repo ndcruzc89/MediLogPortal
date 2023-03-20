@@ -4,17 +4,28 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon src/app.js",
+    "prod": "node src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Nelson Cruz",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "nodemon": "^2.0.21",
+    "express-validator": "^6.15.0",
+    "jsonwebtoken": "^9.0.0",
+    "moment": "^2.29.4",
+    "nodemailer": "^6.9.1",
+    "pdfkit": "^0.13.0",
     "pg": "^8.10.0",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.29.1"
+    "sequelize": "^6.29.1",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.21"
   }
 }

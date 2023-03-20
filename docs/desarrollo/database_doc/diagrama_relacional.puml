@@ -1,0 +1,67 @@
+@startuml "Diagrama relacional"
+
+package "Usuarios" {
+    entity usuario {
+        id long <<PK>>
+        --
+        identificacion varchar(20) <<NN>> <<UQ>>
+        email varchar(50) <<NN>> <<UQ>>
+        telefono varchar(20) <<NN>> 
+        contrasena varchar(20) <<NN>> 
+        codigo_uuid varchar(50) <<NN>> 
+        confirmacion_registro bit(1) <<NN>>
+    }
+}
+
+package "Hospital, Paciente, Medico y Observacion Medica" {
+    entity hospital extends usuario {
+        id_usuario long <<NN>> <<FK>> 
+        --
+        nombre varchar(50) <<NN>>
+        direccion varchar(100) <<NN>>
+        servicios_medicos varchar(200) <<NN>>
+    }
+
+    entity paciente extends usuario {
+        id_usuario long <<NN>> <<FK>> 
+        --
+        nombre varchar(50) <<NN>>
+        lastName varchar(50) <<NN>>
+        secondLastName varchar(50) <<NN>>
+        direccion varchar(100) <<NN>>
+        fecha_nacimiento date <<NN>> 
+    }
+
+    entity medico {
+        id long <<PK>>
+        --
+        nombre varchar(50) <<NN>>
+        lastName varchar(50) <<NN>>
+        secondLastName varchar(50) <<NN>>
+        direccion varchar(100) <<NN>>
+        especialidad varchar(100) <<NN>>
+        primer_inicio_sesion bit(1) <<NN>>
+        --
+        id_usuario <<NN>> <<FK>> 
+        id_hospital <<NN>> <<FK>> 
+    }
+
+    entity observacion_medica {
+        id long <<PK>>
+        --
+        fecha_observacion timestamp <<NN>>
+        detalle_observacion varchar(200)<<NN>>
+        --
+        id_paciente <<NN>> <<FK>>  
+        id_hospital <<NN>> <<FK>> 
+        id_medico <<NN>> <<FK>>
+    }
+
+    medico --> "1" usuario : contiene
+    hospital ||-down-|{ medico
+    hospital ||--o{ observacion_medica
+    paciente ||-right-|{ observacion_medica
+    medico ||--|{ observacion_medica
+}
+
+@enduml
